@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 //import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
 
 class signUp extends StatefulWidget {
   FirebaseAuth _auth;
@@ -53,11 +56,27 @@ class _MySignUpState extends State<signUp> {
         .createUserWithEmailAndPassword(
             email: email1, password: pass1)
         .then((user) {
-      print("User Created ${user.displayName}");
+//      print("User Created ${user.displayName}");
       print("Email : ${user.email}");
+//      Map <String,String> data = <String,String>{
+//        "email" : email1,
+////        "Email": "${user.email}",
+////      "Name" : "${user.displayName}",
+//      };
+      Firestore.instance.collection('users').document()
+          .setData({ 'email': '$email1'});
+//      final DocumentReference documentReference = Firestore.instance.document("users");
+//      documentReference.setData(data).whenComplete((){
+//        print("Document Added");
+//      }).catchError((e)=> print(e));
     });
-    print("User Created2 ${user.displayName}");
-    print("Email2 : ${user.email}");
+//    print("User Created2 ${user.displayName}");
+//    print("Email2 : ${user.email}");
+
+
+
+//    print("signed in " + user.displayName);
     return user;
   }
+
 }

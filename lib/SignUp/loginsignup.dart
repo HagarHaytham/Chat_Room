@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'signup.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = new GoogleSignIn();
+final DocumentReference documentReference = Firestore.instance.document("users/Email");
 
 class LoginSignUpPage extends StatelessWidget {
   @override
@@ -58,13 +60,20 @@ class LoginSignUpPage extends StatelessWidget {
   Future<FirebaseUser> _gSignIn() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
 
     final FirebaseUser user = await _auth.signInWithCredential(credential);
+
+    Map <String,String> data = <String,String>{
+      "Email": "${user.email}",
+      "Name" : "${user.displayName}",
+    };
+    documentReference.setData(data).whenComplete((){
+      print("Document Added");
+    }).catchError((e)=> print(e));
     print("signed in " + user.displayName);
 
 //    setState(() {
