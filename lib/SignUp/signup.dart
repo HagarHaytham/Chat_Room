@@ -13,7 +13,7 @@ class signUp extends StatefulWidget {
 }
 
 class _MySignUpState extends State<signUp> {
-  final myControllerUserName = TextEditingController();
+  final myControllerEmail = TextEditingController();
   final myControllerPassword = TextEditingController();
   FirebaseAuth _auth;
   _MySignUpState(this._auth);
@@ -29,8 +29,8 @@ class _MySignUpState extends State<signUp> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextFormField(
-              decoration: InputDecoration(labelText: 'Enter your username'),
-              controller: myControllerUserName,
+              decoration: InputDecoration(labelText: 'Enter your email'),
+              controller: myControllerEmail,
             ),
             TextFormField(
               decoration: InputDecoration(labelText: 'Enter your password'),
@@ -39,7 +39,7 @@ class _MySignUpState extends State<signUp> {
             ),
             FlatButton(
               child: Text("Create Account"),
-              onPressed: ()=> _signUp(myControllerUserName,myControllerPassword),
+              onPressed: ()=> _signUp(myControllerEmail,myControllerPassword),
               color: Colors.blue,
             ),
           ],
@@ -48,35 +48,38 @@ class _MySignUpState extends State<signUp> {
     );
   }
 
-  Future<FirebaseUser> _signUp(TextEditingController myControllerUserName,TextEditingController myControllerPassword) async {
+  _signUp(TextEditingController myControllerUserName,TextEditingController myControllerPassword) async {
     print("$myControllerUserName");
     String email1 = (myControllerUserName.text).toString();
     String pass1 = (myControllerPassword.text).toString();
     FirebaseUser user = await _auth
         .createUserWithEmailAndPassword(
-            email: email1, password: pass1)
-        .then((user) {
-//      print("User Created ${user.displayName}");
+            email: email1, password: pass1).then((user) async {
       print("Email : ${user.email}");
-//      Map <String,String> data = <String,String>{
-//        "email" : email1,
-////        "Email": "${user.email}",
-////      "Name" : "${user.displayName}",
-//      };
-      Firestore.instance.collection('users').document()
-          .setData({ 'email': '$email1'});
-//      final DocumentReference documentReference = Firestore.instance.document("users");
-//      documentReference.setData(data).whenComplete((){
-//        print("Document Added");
-//      }).catchError((e)=> print(e));
+      if (user != null) {
+        // Check is already sign up
+        final QuerySnapshot result = await Firestore.instance.collection(
+            'users').where(
+            'id', isEqualTo: user.uid).getDocuments();
+        final List<DocumentSnapshot> documents = result.documents;
+        if (documents.length == 0) {
+          // Update data to server if new user
+          Firestore.instance.collection('users').document(user.uid).setData(
+              {
+                'username': user.displayName,
+                'email': user.email,
+                'id': user.uid
+              });
+        }
+//        else  // Not a new user ?
+//          {
+//
+//        }
+      }
     });
-//    print("User Created2 ${user.displayName}");
-//    print("Email2 : ${user.email}");
+    }
+//    return user;
 
-
-
-//    print("signed in " + user.displayName);
-    return user;
   }
 
-}
+

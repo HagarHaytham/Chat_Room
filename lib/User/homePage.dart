@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import '../ChatRoom/chat_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../ChatRoom/create_chatRoom.dart';
 //import "dart.io";
 //import 'package:web_socket_channel/web_socket_channel.dart';
 //import 'package:web_socket_channel/io.dart';
@@ -20,12 +21,53 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 //Haneen
 class HomePage extends StatelessWidget{
+  String userId ;
+  HomePage(this.userId);
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(appBar: new AppBar(
-      title: new Text('HomePage'),
-    ),
-        body: new ChatRoomsList()
+    return new Scaffold(
+        appBar: new AppBar(
+          title: new Text('HomePage'),
+        ),
+        body: new ChatRoomsList(),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Text('Chatty'),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+              ),
+
+              ListTile(
+                title: Text('Create Chat Room'),
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CreateChat()),
+                  );
+                },
+              ),
+
+              ListTile(
+                title: Text('Join Chat Room'),
+                onTap: (){
+
+                  Navigator.pop(context);
+                },
+              ),
+
+              ListTile(
+                title: Text('Profile'),
+                onTap: (){
+
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),),
     );
 
   }
@@ -96,3 +138,4 @@ class Record {
   Record.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 }
+
