@@ -66,19 +66,36 @@ class LoginSignUpPage extends StatelessWidget {
     );
 
     final FirebaseUser user = await _auth.signInWithCredential(credential);
-
-    Map <String,String> data = <String,String>{
-      "Email": "${user.email}",
-      "Name" : "${user.displayName}",
-    };
-    documentReference.setData(data).whenComplete((){
-      print("Document Added");
-    }).catchError((e)=> print(e));
-    print("signed in " + user.displayName);
+    if (user != null) {
+      // Check is already sign up
+      final QuerySnapshot result =
+      await Firestore.instance.collection('users').where(
+          'id', isEqualTo: user.uid).getDocuments();
+      final List<DocumentSnapshot> documents = result.documents;
+      if (documents.length == 0) {
+        // Update data to server if new user
+        Firestore.instance.collection('users').document(user.uid).setData(
+            {
+              'username': user.displayName,
+              'email' : user.email,
+//              'photoUrl': user.photoUrl,
+              'id': user.uid
+            });
+      }
+    }
+//    Map <String,String> data = <String,String>{
+//      "Email": "${user.email}",
+//      "Name" : "${user.displayName}",
+//    };
+//    documentReference.setData(data).whenComplete((){
+//      print("Document Added");
+//    }).catchError((e)=> print(e));
+//    print("signed in " + user.displayName);
 
 //    setState(() {
 //      _imageUrl = user.photoUrl;
 //    });
+
     return user;
   }
 
