@@ -58,13 +58,14 @@ class LoginSignUpPage extends StatelessWidget {
   }
 
   Future<FirebaseUser> _gSignIn() async {
+    print("GOOGLE SIGN IN 1 !!!!");
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-
+    print("GOOGLE SIGN IN 2 !!!!");
     final FirebaseUser user = await _auth.signInWithCredential(credential);
     if (user != null) {
       // Check is already sign up
@@ -83,18 +84,7 @@ class LoginSignUpPage extends StatelessWidget {
             });
       }
     }
-//    Map <String,String> data = <String,String>{
-//      "Email": "${user.email}",
-//      "Name" : "${user.displayName}",
-//    };
-//    documentReference.setData(data).whenComplete((){
-//      print("Document Added");
-//    }).catchError((e)=> print(e));
-//    print("signed in " + user.displayName);
 
-//    setState(() {
-//      _imageUrl = user.photoUrl;
-//    });
 
     return user;
   }
