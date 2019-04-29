@@ -25,7 +25,7 @@ class LoginSignUpPage extends StatelessWidget {
           children: <Widget>[
             // google sign in not working
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(12.0),
               child: FlatButton(
                 child : Text("Google Sign in"),
                 onPressed: ()=>_gSignIn(context),
@@ -35,7 +35,7 @@ class LoginSignUpPage extends StatelessWidget {
 
 
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(12.0),
               child: FlatButton (
                 child: Text("Create Account"),
                 onPressed: ()=> _createUser(context),
@@ -43,13 +43,14 @@ class LoginSignUpPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(12.0),
               child: FlatButton (
                 child: Text("Log in"),
                 onPressed: ()=>_login(context),// To Do
-                color: Colors.deepPurple,
+                color: Colors.amberAccent,
               ),
             ),
+
 
 //          new Image.network(_imageUrl == null || _imageUrl.isEmpty ?
 //            'https://picsum.photos/250?image=9' :_imageUrl),
@@ -101,7 +102,7 @@ class LoginSignUpPage extends StatelessWidget {
   _login(BuildContext context)  {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => logIn(_auth)),
+      MaterialPageRoute(builder: (context) => logIn(_auth,false)),
     );
   }
 
