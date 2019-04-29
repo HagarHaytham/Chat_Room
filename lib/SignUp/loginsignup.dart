@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'signup.dart';
+import 'login.dart';
 import '../User/homePage.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -45,7 +46,7 @@ class LoginSignUpPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: FlatButton (
                 child: Text("Log in"),
-                onPressed: (){},// To Do
+                onPressed: ()=>_login(context),// To Do
                 color: Colors.deepPurple,
               ),
             ),
@@ -94,6 +95,13 @@ class LoginSignUpPage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => signUp(_auth)),
+    );
+  }
+
+  _login(BuildContext context)  {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => logIn(_auth)),
     );
   }
 
