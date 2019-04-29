@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import './SignUp/signup.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = new GoogleSignIn();
@@ -52,20 +53,12 @@ String _imageUrl;
             ),
           ),
 
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FlatButton(
-              child: Text("Sign in with Email"),
-              onPressed: (){}, // To Do
-              color: Colors.blue,
-            ),
-          ),
 
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: FlatButton (
               child: Text("Create Account"),
-              onPressed: (){},
+              onPressed: ()=> _createUser(),
               color: Colors.white,
             ),
           ),
@@ -97,4 +90,11 @@ String _imageUrl;
     });
     return user;
   }
+
+   _createUser()  {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => signUp(_auth)),
+      );
+    }
 }
