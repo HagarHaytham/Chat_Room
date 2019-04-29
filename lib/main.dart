@@ -6,7 +6,7 @@ import 'User/homePage.dart';
 void main() => runApp(MyApp());
 
 //Haneen main
-/*class MyApp() extends StatelessWidget{
+/*class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return new MaterialApp(title: 'HomePage', home: new HomePage());
@@ -38,13 +38,4 @@ class MyApp extends StatelessWidget {
       home: LoginSignUpPage(),//MyHomePage(),
     );
   }
-}
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new Scaffold();
-  }
-
 }

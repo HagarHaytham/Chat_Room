@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'signup.dart';
+import '../User/homePage.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = new GoogleSignIn();
@@ -26,7 +27,7 @@ class LoginSignUpPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: FlatButton(
                 child : Text("Google Sign in"),
-                onPressed: ()=>_gSignIn(),
+                onPressed: ()=>_gSignIn(context),
                 color: Colors.red,
               ),
             ),
@@ -57,7 +58,7 @@ class LoginSignUpPage extends StatelessWidget {
     );
   }
 
-  Future<FirebaseUser> _gSignIn() async {
+  Future<FirebaseUser> _gSignIn(BuildContext context) async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
     final AuthCredential credential = GoogleAuthProvider.getCredential(
@@ -83,6 +84,10 @@ class LoginSignUpPage extends StatelessWidget {
             });
       }
     }
+    
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()));
 //    Map <String,String> data = <String,String>{
 //      "Email": "${user.email}",
 //      "Name" : "${user.displayName}",
@@ -95,8 +100,8 @@ class LoginSignUpPage extends StatelessWidget {
 //    setState(() {
 //      _imageUrl = user.photoUrl;
 //    });
-
-    return user;
+  
+    //return user;
   }
 
   _createUser(BuildContext context)  {
