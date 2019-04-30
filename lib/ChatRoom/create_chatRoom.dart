@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../ChatRoom/chat_screen.dart';
+import '../ChatRoom/chat_main.dart';
 
 class CreateChat extends StatelessWidget {
-  String userId ;
+  final String userId ;
   CreateChat(this.userId);
 
   @override
@@ -16,7 +17,7 @@ class CreateChat extends StatelessWidget {
 }
 
 class CreateChatForm extends StatefulWidget {
-  String userId ;
+  final String userId ;
   CreateChatForm(this.userId);
 
   @override
@@ -28,7 +29,7 @@ class CreateChatForm extends StatefulWidget {
 class CreateChatFormState extends State<CreateChatForm> {
   @override
   final myController = TextEditingController();
-  String userId ;
+  final String userId ;
   CreateChatFormState(this.userId);
 
   @override
@@ -46,7 +47,7 @@ class CreateChatFormState extends State<CreateChatForm> {
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.push(
                   context,
-              MaterialPageRoute(builder: (context) => ChatScreen())),
+              MaterialPageRoute(builder: (context) => new ChatHomePage())),
             )
           ),
         body: Padding(
