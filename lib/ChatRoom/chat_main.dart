@@ -19,7 +19,7 @@ class ChatHomePage extends StatelessWidget{
     return new Scaffold(appBar: new AppBar(
       title: new Text("Frenzy Chat"),
     ),
-        body: new ChatScreen()
+        body: new ChatScreen(userId,chatId)
     );
 
   }
