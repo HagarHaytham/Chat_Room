@@ -133,7 +133,9 @@ class _ChatRoomsListState extends State<ChatRoomsList>{
         child: ListTile(
           title: Text(record.name),
           trailing: Text(record.admin),
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen()),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ChatScreen()),
         ),
       ),
     ),

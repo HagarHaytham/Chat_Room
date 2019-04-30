@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../ChatRoom/chat_screen.dart';
 
 class CreateChat extends StatelessWidget {
   String userId ;
@@ -43,7 +44,9 @@ class CreateChatFormState extends State<CreateChatForm> {
             title: Text('Retrieve Text Input'),
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context, false),
+              onPressed: () => Navigator.push(
+                  context,
+              MaterialPageRoute(builder: (context) => ChatScreen())),
             )
           ),
         body: Padding(
