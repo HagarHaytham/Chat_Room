@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'chat_message.dart';
 
+class CreateChatScreen extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Chat Room',
+      home: ChatScreen(),
+    );
+  }
+}
+
 class ChatScreen extends StatefulWidget{
   State createState() => new ChatScreenState();
 }

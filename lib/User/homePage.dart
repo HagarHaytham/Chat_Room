@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../ChatRoom/create_chatRoom.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../SignUp/loginsignup.dart';
+import '../ChatRoom/chat_main.dart';
 //import "dart.io";
 //import 'package:web_socket_channel/web_socket_channel.dart';
 //import 'package:web_socket_channel/io.dart';
@@ -49,7 +50,7 @@ class HomePage extends StatelessWidget{
                   Navigator.pop(context);
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CreateChat(userId)),
+                      MaterialPageRoute(builder: (context) => new CreateChat(userId)),
                   );
                   //Navigator.pop(context);
                 },
@@ -135,7 +136,7 @@ class _ChatRoomsListState extends State<ChatRoomsList>{
           trailing: Text(record.admin),
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatScreen()),
+            MaterialPageRoute(builder: (context) => new ChatHomePage()),
         ),
       ),
     ),
