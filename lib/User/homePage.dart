@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import '../ChatRoom/chat_screen.dart';
+import '../ChatRoom/chat_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../ChatRoom/create_chatRoom.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -133,9 +133,10 @@ class _ChatRoomsListState extends State<ChatRoomsList>{
         child: ListTile(
           title: Text(record.name),
           trailing: Text(record.admin),
-          onTap: () => print(record),
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen()),
         ),
       ),
+    ),
     );
   }
 }
