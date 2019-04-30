@@ -2,22 +2,28 @@ import 'package:flutter/material.dart';
 import 'chat_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class CreateChatScreen extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Chat Room',
-      home: ChatScreen(),
-    );
-  }
-}
+//class CreateChatScreen extends StatelessWidget {
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return MaterialApp(
+//      title: 'Chat Room',
+//      home: ChatScreen(),
+//    );
+//  }
+//}
 
 class ChatScreen extends StatefulWidget{
-  State createState() => new ChatScreenState();
+  String userId;
+  String chatRoomId;
+  ChatScreen(this.userId,this.chatRoomId);
+  State createState() => new ChatScreenState(userId,chatRoomId);
 }
 
 class ChatScreenState extends State<ChatScreen>{
+  String userId;
+  String chatRoomId;
+  ChatScreenState(this.userId,this.chatRoomId);
   final TextEditingController _textController = new TextEditingController();
   final List<ChatMessage> _messages=<ChatMessage> [];
 
@@ -29,10 +35,21 @@ class ChatScreenState extends State<ChatScreen>{
     setState(() {
       _messages.insert(0, message) ;
     });
-    Firestore.instance.collection('chatrooms').document('-LdeA9MXmmNkvU40qFEV').collection('message').document('IzWdkPgf3sBTq3V5ua5r').setData({
+
+    // Send to database
+    Firestore.instance.collection('chatrooms').document(chatRoomId).collection('message').document(DateTime.now().millisecondsSinceEpoch.toString())
+        .setData({
       'Content': text, //user.displayName, // No display name here !
-      'Owner' : 'anaa'
+      'Owner' : userId,
+      'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
     });
+    // Recieve ?!!
+    Firestore.instance.collection('chatrooms')
+        .document(chatRoomId)
+        .collection('message')
+        .orderBy('timestamp', descending: true)
+        .limit(20)
+        .snapshots();
   }
 
   Widget _textComposerWidget(){

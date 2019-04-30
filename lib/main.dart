@@ -6,15 +6,15 @@ import 'User/homePage.dart';
 void main() => runApp(MyApp());
 
 //Haneen main
-class MyApp extends StatelessWidget{
-
-  final String dummy = 'dummy';
-
-  @override
-  Widget build(BuildContext context){
-    return new MaterialApp(title: 'HomePage', home: new HomePage(dummy));
-  }
-}
+//class MyApp extends StatelessWidget{
+//
+//  final String dummy = 'dummy';
+//
+//  @override
+//  Widget build(BuildContext context){
+//    return new MaterialApp(title: 'HomePage', home: new HomePage(dummy));
+//  }
+//}
 
 
 //Mary main
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget{
 // }
 
 //Hagar main
-/*class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
 
   // This widget is the root of your application.
   @override
@@ -42,4 +42,4 @@ class MyApp extends StatelessWidget{
       home: LoginSignUpPage(),//MyHomePage(),
     );
   }
-}*/
+}
