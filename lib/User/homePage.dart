@@ -24,7 +24,7 @@ import '../ChatRoom/chat_main.dart';
 
 //Haneen
 class HomePage extends StatelessWidget{
-  String userId ;
+  final String userId ;
   HomePage(this.userId);
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget{
         appBar: new AppBar(
           title: new Text('HomePage'),
         ),
-        body: new ChatRoomsList(),
+        body: new ChatRoomsList(userId),
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -91,14 +91,20 @@ class HomePage extends StatelessWidget{
 }
 
 class ChatRoomsList extends StatefulWidget{
-  @override
 
+  final String userId ;
+  ChatRoomsList(this.userId);
+
+  @override
   _ChatRoomsListState createState(){
-    return _ChatRoomsListState();
+    return _ChatRoomsListState(userId);
   }
 }
 
 class _ChatRoomsListState extends State<ChatRoomsList>{
+  final String userId ;
+  _ChatRoomsListState(this.userId);
+
   @override
 
   Widget build(BuildContext context){
@@ -136,7 +142,7 @@ class _ChatRoomsListState extends State<ChatRoomsList>{
           trailing: Text(record.admin),
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => new ChatHomePage()),
+            MaterialPageRoute(builder: (context) => new ChatHomePage(userId, data.documentID)),
         ),
       ),
     ),
