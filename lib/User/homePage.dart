@@ -46,9 +46,10 @@ class HomePage extends StatelessWidget{
               ListTile(
                 title: Text('Create Chat Room'),
                 onTap: (){
+                  Navigator.pop(context);
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CreateChat()),
+                      MaterialPageRoute(builder: (context) => CreateChat(userId)),
                   );
                   //Navigator.pop(context);
                 },

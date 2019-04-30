@@ -2,25 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CreateChat extends StatelessWidget {
+  String userId ;
+  CreateChat(this.userId);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Create Chat',
-      home: CreateChatForm(),
+      home: CreateChatForm(userId),
     );
   }
 }
 
 class CreateChatForm extends StatefulWidget {
+  String userId ;
+  CreateChatForm(this.userId);
+
   @override
   CreateChatFormState createState() {
-    return CreateChatFormState();
+    return CreateChatFormState(userId);
   }
 }
 
 class CreateChatFormState extends State<CreateChatForm> {
   @override
   final myController = TextEditingController();
+  String userId ;
+  CreateChatFormState(this.userId);
 
   @override
   void dispose() {
@@ -36,7 +44,8 @@ class CreateChatFormState extends State<CreateChatForm> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(context, false),
-            )),
+            )
+          ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextField(
@@ -48,7 +57,7 @@ class CreateChatFormState extends State<CreateChatForm> {
           // text the user has typed into our text field.
           onPressed: () {
             Firestore.instance.collection('chatrooms').add(
-              {"name": myController.text, "admin": null},
+              {"name": myController.text, "admin": userId},
             );
           },
           tooltip: 'Show me the value!',
