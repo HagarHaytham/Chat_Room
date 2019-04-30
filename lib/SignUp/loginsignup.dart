@@ -18,6 +18,7 @@ class LoginSignUpPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Sign up / Sign in"),
+          automaticallyImplyLeading: false, // To avoid showing  back button
       ),
       body:Center(
         child : Column(
