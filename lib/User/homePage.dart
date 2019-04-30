@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 //import '../ChatRoom/chat_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../ChatRoom/create_chatRoom.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../SignUp/loginsignup.dart';
 //import "dart.io";
 //import 'package:web_socket_channel/web_socket_channel.dart';
 //import 'package:web_socket_channel/io.dart';
@@ -65,11 +67,23 @@ class HomePage extends StatelessWidget{
 
                   Navigator.pop(context);
                 },
-              )
+              ),
+              ListTile(
+                title: Text('Log out'),
+                onTap: ()=>_logOut(context),
+              ),
             ],
           ),),
     );
 
+  }
+  _logOut(BuildContext context)  async{
+    await FirebaseAuth.instance.signOut();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LoginSignUpPage()),
+    );
   }
 }
 

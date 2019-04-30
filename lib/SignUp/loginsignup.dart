@@ -102,7 +102,7 @@ class LoginSignUpPage extends StatelessWidget {
   _login(BuildContext context)  {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => logIn(_auth,false)),
+      MaterialPageRoute(builder: (context) => LogIn(_auth,false)),
     );
   }
 

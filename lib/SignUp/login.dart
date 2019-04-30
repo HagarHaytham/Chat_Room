@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../User/homePage.dart';
 
-class logIn extends StatefulWidget {
+class LogIn extends StatefulWidget {
   FirebaseAuth _auth;
   bool loginFailed ;//= false;
-  logIn(this._auth,this.loginFailed); // constructor
+  LogIn(this._auth,this.loginFailed); // constructor
   @override
   State<StatefulWidget> createState() => _MyLogInState(_auth,loginFailed);
 }
-class _MyLogInState extends State<logIn> {
+class _MyLogInState extends State<LogIn> {
   final myControllerEmail = TextEditingController();
   final myControllerPassword = TextEditingController();
   bool loginFailed ;//= false;
@@ -76,7 +76,7 @@ class _MyLogInState extends State<logIn> {
         loginFailed = true;
         print("Not Logged in");
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => logIn(_auth,true)));
+            MaterialPageRoute(builder: (context) => LogIn(_auth,true)));
       }
     }
   }
