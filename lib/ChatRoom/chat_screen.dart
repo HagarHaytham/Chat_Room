@@ -105,7 +105,7 @@ class ChatScreenState extends State<ChatScreen>{
       children: <Widget>[
         new ListView(
           padding: new EdgeInsets.all(8.0),
-          children: snapshot.map((data) => _buildListItem(context, data)),
+          children: snapshot.map((data) => _buildListItem(context, data)).toList(),
         ),
         /*new Flexible(
           child: new ListView.builder(
@@ -130,6 +130,25 @@ class ChatScreenState extends State<ChatScreen>{
 
 Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
   final record = Record.fromSnapshot(data);
+
+  return Padding(
+    key: ValueKey(record.name),
+    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+    child: Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      child: ListTile(
+        title: Text(record.name),
+        trailing: Text(record.admin),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => new ChatHomePage(userId, data.documentID)),
+        ),
+      ),
+    ),
+  );
 }
 
 class Record {
