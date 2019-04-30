@@ -33,7 +33,7 @@ class ChatScreenState extends State<ChatScreen>{
       text: text,
     );
     setState(() {
-      _messages.insert(0, message) ;
+      //_messages =  Firestore.instance.collection('chatrooms').document(chatRoomId).snapshots();
     });
 
     // Send to database
@@ -43,13 +43,20 @@ class ChatScreenState extends State<ChatScreen>{
       'Owner' : userId,
       'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
     });
+
+    //ChatMessage receive = new ChatMessage(
+      //text: Firestore.instance.collection('chatrooms').document(chatRoomId).snapshots(),
+    //)
+    //_messages.insert(0, element)
     // Recieve ?!!
-    Firestore.instance.collection('chatrooms')
+    /*Firestore.instance.collection('chatrooms')
         .document(chatRoomId)
         .collection('message')
         .orderBy('timestamp', descending: true)
         .limit(20)
         .snapshots();
+        */
+    //TODO
   }
 
   Widget _textComposerWidget(){
@@ -82,16 +89,33 @@ class ChatScreenState extends State<ChatScreen>{
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection('chatrooms').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+
+        return _buildList(context, snapshot.data.documents);
+      },
+    );
+  }
+
+    Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot){
+
     return  new Column(
       children: <Widget>[
-        new Flexible(
+        new ListView(
+          padding: new EdgeInsets.all(8.0),
+          children: snapshot.map((data) => _buildListItem(context, data)),
+        ),
+        /*new Flexible(
           child: new ListView.builder(
             padding: new EdgeInsets.all(8.0),
             reverse: true,
-            itemBuilder: (_,int index) => _messages[index],
+            itemBuilder: (_,int index) => record,//_messages[index],
             itemCount: _messages.length,
+
           ),
-        ),
+        ),*/
         new Divider(height: 1.0,),
         new Container(
           decoration: new BoxDecoration(
@@ -102,4 +126,23 @@ class ChatScreenState extends State<ChatScreen>{
       ],
     );
   }
+}
+
+Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
+  final record = Record.fromSnapshot(data);
+}
+
+class Record {
+  final String name;
+  final String admin;
+  final DocumentReference reference;
+
+  Record.fromMap(Map<String, dynamic> map, {this.reference})
+      : assert(map['admin'] != null),
+        assert(map['name'] != null),
+        name = map['name'],
+        admin = map['admin'];
+
+  Record.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data, reference: snapshot.reference);
 }
