@@ -65,6 +65,11 @@ class CreateChatFormState extends State<CreateChatForm> {
             Firestore.instance.collection('chatrooms').add(
               {"name": myController.text, "admin": userId},
             );
+
+            Navigator.push(
+                context,
+                    MaterialPageRoute(builder: (context) => HomePage(userId)),
+            );
           },
           tooltip: 'Show me the value!',
           child: Icon(Icons.text_fields),
