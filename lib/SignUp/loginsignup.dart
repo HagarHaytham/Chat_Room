@@ -8,7 +8,7 @@ import '../User/homePage.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = new GoogleSignIn();
-final DocumentReference documentReference = Firestore.instance.document("users/Email");
+//final DocumentReference documentReference = Firestore.instance.document("users/Email");
 
 class LoginSignUpPage extends StatelessWidget {
   @override

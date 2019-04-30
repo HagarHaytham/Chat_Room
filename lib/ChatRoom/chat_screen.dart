@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'chat_message.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget{
   State createState() => new ChatScreenState();
@@ -16,6 +17,10 @@ class ChatScreenState extends State<ChatScreen>{
     );
     setState(() {
       _messages.insert(0, message) ;
+    });
+    Firestore.instance.collection('chatrooms').document('-LdeA9MXmmNkvU40qFEV').collection('message').document('IzWdkPgf3sBTq3V5ua5r').setData({
+      'Content': text, //user.displayName, // No display name here !
+      'Owner' : 'anaa'
     });
   }
 
