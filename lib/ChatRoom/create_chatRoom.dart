@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../ChatRoom/chat_screen.dart';
 import '../ChatRoom/chat_main.dart';
+import '../User/homePage.dart';
 
 class CreateChat extends StatelessWidget {
   final String userId ;
@@ -47,9 +48,10 @@ class CreateChatFormState extends State<CreateChatForm> {
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.push(
                   context,
-              MaterialPageRoute(builder: (context) => new ChatHomePage())),
+              MaterialPageRoute(builder: (context) => HomePage(userId)),
             )
           ),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextField(

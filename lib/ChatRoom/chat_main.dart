@@ -10,6 +10,10 @@ import '../SignUp/loginsignup.dart';
 //import 'package:web_socket';
 
 class ChatHomePage extends StatelessWidget{
+  final String userId ;
+  final String chatId;
+  ChatHomePage(this.userId, this.chatId);
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(appBar: new AppBar(
